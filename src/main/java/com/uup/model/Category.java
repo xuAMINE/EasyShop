@@ -20,7 +20,7 @@ public class Category {
     private Integer categoryId;
 
     private String name;
-    @Lob
+
     private String description;
 
     @OneToMany(mappedBy = "category")

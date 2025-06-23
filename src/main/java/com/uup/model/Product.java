@@ -27,12 +27,11 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @Lob
     private String description;
-    private String color;
     private String imageUrl;
     private int stock;
     private boolean featured;
+    private String color;
 
     @OneToMany(mappedBy = "product")
     private List<OrderLineItem> orderLineItems;
