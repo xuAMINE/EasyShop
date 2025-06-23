@@ -1,10 +1,18 @@
 package com.uup.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "shopping_cart")
 @IdClass(ShoppingCartId.class)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ShoppingCartItem {
 
     @Id
