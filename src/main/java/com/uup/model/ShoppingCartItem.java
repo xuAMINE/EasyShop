@@ -1,0 +1,22 @@
+package com.uup.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "shopping_cart")
+@IdClass(ShoppingCartId.class)
+public class ShoppingCartItem {
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private int quantity;
+}
+
