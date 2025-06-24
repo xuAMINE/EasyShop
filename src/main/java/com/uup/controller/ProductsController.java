@@ -1,5 +1,6 @@
 package com.uup.controller;
 
+import com.uup.dto.ProductDTO;
 import com.uup.model.Product;
 import com.uup.repository.ProductRepository;
 import jakarta.validation.Valid;
@@ -22,23 +23,31 @@ public class ProductsController {
 
     @GetMapping
     @PreAuthorize("permitAll()")
-    public List<Product> search(
+    public List<ProductDTO> search(
             @RequestParam(name = "cat", required = false) Integer categoryId,
             @RequestParam(name = "minPrice", required = false) BigDecimal minPrice,
             @RequestParam(name = "maxPrice", required = false) BigDecimal maxPrice,
             @RequestParam(name = "color", required = false) String color
     ) {
-        try {
-            return productRepository.findAll().stream()
-                    .filter(p -> categoryId == null || p.getCategory().getCategoryId().equals(categoryId))
-                    .filter(p -> minPrice == null || p.getPrice().compareTo(minPrice) >= 0)
-                    .filter(p -> maxPrice == null || p.getPrice().compareTo(maxPrice) <= 0)
-                    .filter(p -> color == null || p.getColor().equalsIgnoreCase(color))
-                    .toList();
-        } catch (Exception ex) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
-        }
+        return productRepository.findAll().stream()
+                .filter(p -> categoryId == null || p.getCategory().getCategoryId().equals(categoryId))
+                .filter(p -> minPrice == null || p.getPrice().compareTo(minPrice) >= 0)
+                .filter(p -> maxPrice == null || p.getPrice().compareTo(maxPrice) <= 0)
+                .filter(p -> color == null || p.getColor().equalsIgnoreCase(color))
+                .map(p -> new ProductDTO(
+                        p.getProductId(),
+                        p.getName(),
+                        p.getPrice(),
+                        p.getCategory().getCategoryId(),
+                        p.getDescription(),
+                        p.getColor(),
+                        p.getStock(),
+                        p.getImageUrl(),
+                        p.isFeatured()
+                ))
+                .toList();
     }
+
 
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
