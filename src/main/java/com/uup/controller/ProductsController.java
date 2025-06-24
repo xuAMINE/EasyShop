@@ -1,8 +1,11 @@
 package com.uup.controller;
 
 import com.uup.dto.ProductDTO;
+import com.uup.model.Category;
 import com.uup.model.Product;
+import com.uup.repository.CategoryRepository;
 import com.uup.repository.ProductRepository;
+import com.uup.util.ProductMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import java.util.List;
 public class ProductsController {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     @GetMapping
     @PreAuthorize("permitAll()")
@@ -64,13 +68,32 @@ public class ProductsController {
 
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Product updateProduct(@PathVariable int id, @RequestBody @Valid Product product) {
+    public ProductDTO updateProduct(@PathVariable int id, @RequestBody @Valid ProductDTO dto) {
         if (!productRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        product.setProductId(id);
-        return productRepository.save(product);
+
+        // Fetch the existing product and update it with values from DTO
+        Product existing = productRepository.findById(id).orElseThrow();
+
+        existing.setName(dto.getName());
+        existing.setPrice(dto.getPrice());
+        existing.setDescription(dto.getDescription());
+        existing.setColor(dto.getColor());
+        existing.setStock(dto.getStock());
+        existing.setImageUrl(dto.getImageUrl());
+        existing.setFeatured(dto.isFeatured());
+
+        // Set category using the categoryId from the DTO
+        Category category = categoryRepository.findById(dto.getCategoryId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid categoryId"));
+        existing.setCategory(category);
+
+        // Save and return the updated product as DTO
+        Product updated = productRepository.save(existing);
+        return ProductMapper.toDTO(updated);
     }
+
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
