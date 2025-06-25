@@ -8,23 +8,27 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "shopping_cart")
-@IdClass(ShoppingCartId.class)
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ShoppingCartItem {
 
-    @Id
+    @EmbeddedId
+    private ShoppingCartId id;
+
+    @MapsId("userId")
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Id
+    @MapsId("productId")
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
     private int quantity;
 }
+
+
 
