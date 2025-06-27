@@ -2,7 +2,9 @@ package com.uup.controller;
 
 import com.uup.dto.AuthRequest;
 import com.uup.dto.AuthResponse;
+import com.uup.model.Profile;
 import com.uup.model.User;
+import com.uup.repository.ProfileRepository;
 import com.uup.repository.UserRepository;
 import com.uup.security.jwt.TokenProvider;
 import jakarta.validation.Valid;
@@ -27,6 +29,7 @@ public class AuthController {
     private final TokenProvider tokenProvider;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ProfileRepository profileRepository;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody @Valid AuthRequest request) {
@@ -55,10 +58,16 @@ public class AuthController {
 
         User savedUser = userRepository.save(user);
 
+        // Create an empty profile for the new user
+        Profile profile = new Profile();
+        profile.setUser(savedUser);
+        profileRepository.save(profile);
+
         return ResponseEntity.ok(Map.of(
                 "id", savedUser.getUserId(),
                 "username", savedUser.getUsername(),
                 "authorities", List.of(Map.of("name", savedUser.getRole()))
         ));
     }
+
 }
