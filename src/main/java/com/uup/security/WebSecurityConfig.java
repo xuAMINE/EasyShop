@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                         .accessDeniedHandler(accessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register", "/products/**", "/categories/**", "/cart/**").permitAll()
+                        .requestMatchers("/login", "/register", "/products/**", "/categories/**", "/cart/**", "/profile/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

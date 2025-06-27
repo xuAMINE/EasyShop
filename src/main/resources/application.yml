@@ -1,13 +1,13 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/easyshop
-    username: postgres
-    password: postgres1
+    url: ${DB_HOST}
+    username: ${DB_NAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update  # or "create" if you want to start fresh
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
@@ -19,5 +19,5 @@ spring:
 #      mode: always
 
 jwt:
-  secret: 2f81f6a9a5c24e2f94b9d3f8d40358dfaf29dd274c7d489b82a1f46e44c29e377d97e80e4382d1c3e3b4d5f42ff3de39
-  expiration: 86400000 # 1 day in milliseconds
+  secret: ${JWT_SECRET_KEY}
+  expiration: ${JWT_EXP}
