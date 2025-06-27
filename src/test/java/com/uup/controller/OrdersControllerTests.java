@@ -105,6 +105,4 @@ public class OrdersControllerTests {
         assertThrows(ResponseStatusException.class,
                 () -> ordersController.checkout(mockPrincipal));
     }
-
-    // Add more if needed to test null profile, invalid product, etc.
 }

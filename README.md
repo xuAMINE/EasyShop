@@ -1,78 +1,112 @@
-# E-Commerce Backend System
+# 🛒 E-Commerce Web Application Backend
 
-This project is a fully functional e-commerce backend built using **Spring Boot**, **Spring Security**, **JWT**, **JPA**, and **PostgreSQL**. It manages users, products, shopping carts, orders, and profiles, and includes proper authentication and authorization mechanisms.
+This project is a **robust Spring Boot backend** powering a full-stack e-commerce web application. Built as a capstone for backend engineering training, it features modern best practices for **secure, testable, and scalable web APIs**.
 
-## Features
+---
 
-- ✅ User registration and login (with JWT authentication)
-- ✅ Role-based access control (`ROLE_USER`, `ROLE_ADMIN`)
-- ✅ Product catalog with category support
-- ✅ User profile management
-- ✅ Shopping cart with quantity control
-- ✅ Order creation (checkout process)
-- ✅ Comprehensive unit and repository testing
-- ✅ CORS and CSRF handling for frontend integration
+![Homepage](src/main/resources/static/homepageES.png)
+*Homepage displaying featured products*
 
-## Technologies Used
+---
+
+## 🚀 Project Overview
+
+This is a backend system for a shopping platform, enabling users to browse products, manage their cart, update profile info, and check out. The admin can manage products and categories.
+
+> **Capstone Scope**: Built as a part of the Year Up United Software Development curriculum — no deployment or authentication UI required, but full backend functionality implemented with realistic constraints.
+
+---
+
+## ✨ Features
+
+- ✅ **JWT-based login/registration**
+- ✅ **Spring Security with role-based access**
+- ✅ **Product catalog with categories**
+- ✅ **User profile view/update**
+- ✅ **Persistent shopping cart**
+- ✅ **Order creation/checkout**
+- ✅ **PostgreSQL integration with JPA**
+- ✅ **Comprehensive unit & repository testing**
+
+---
+
+## 📷 UI Previews
+
+| Product View | Shopping Cart | Profile Update |
+|--------------|----------------|----------------|
+| ![Products](src/main/resources/static/productViewES.png) | ![Cart](src/main/resources/static/ProfileUpdateES.png) | ![Profile](src/main/resources/static/shoppingCartES.png) |
+
+---
+
+## 🔧 Technologies Used
 
 - Java 21
-- Spring Boot 3.3.13
-- Spring Security (JWT-based)
+- Spring Boot 3.3.x
+- Spring Security (JWT)
 - Spring Data JPA
 - PostgreSQL
 - Maven
-- JUnit 5
-- Mockito
-- Postman for API testing
+- JUnit 5 + Mockito
+- Thymeleaf (for frontend templates)
+- JavaScript / Axios (Frontend API calls)
 
-## API Endpoints
+---
 
-### Authentication
+## 🛠️ API Endpoints
 
-| Method | Endpoint      | Description                 |
-|--------|---------------|-----------------------------|
-| POST   | /register     | Register a new user         |
-| POST   | /login        | Login and receive JWT token |
+### 🔐 Authentication
 
-### Products & Categories
+| Method | URL        | Description          |
+|--------|------------|----------------------|
+| POST   | `/register` | User registration    |
+| POST   | `/login`    | Login & receive token |
 
-| Method | Endpoint               | Description                     |
-|--------|------------------------|---------------------------------|
-| GET    | /products              | List all products               |
-| GET    | /products/{id}         | Get product by ID               |
-| GET    | /categories            | List all categories             |
-| GET    | /categories/{id}      | Get category by ID              |
-| GET    | /categories/{id}/products | List products in a category |
+### 👤 Profile
 
-### User Profile
+| Method | URL       | Description          |
+|--------|-----------|----------------------|
+| GET    | `/profile` | Get current profile  |
+| PUT    | `/profile` | Update profile       |
 
-| Method | Endpoint   | Description             |
-|--------|------------|-------------------------|
-| GET    | /profile   | Get current user profile |
-| PUT    | /profile   | Update user profile      |
+### 📦 Products & Categories
 
-### Shopping Cart
+| Method | URL                         | Description              |
+|--------|-----------------------------|--------------------------|
+| GET    | `/products`                 | List all products        |
+| GET    | `/categories`              | List all categories      |
+| GET    | `/categories/{id}/products`| Products by category     |
 
-| Method | Endpoint                   | Description                     |
-|--------|----------------------------|---------------------------------|
-| GET    | /cart                      | Get current user's cart         |
-| POST   | /cart/products/{productId} | Add product to cart             |
-| PUT    | /cart/products/{productId} | Update product quantity in cart |
-| DELETE | /cart                      | Clear the shopping cart         |
+### 🛒 Shopping Cart
 
-### Orders
+| Method | URL                              | Description                 |
+|--------|----------------------------------|-----------------------------|
+| GET    | `/cart`                          | View cart                   |
+| POST   | `/cart/products/{productId}`     | Add product to cart         |
+| PUT    | `/cart/products/{productId}`     | Update product quantity     |
+| DELETE | `/cart`                          | Clear cart                  |
 
-| Method | Endpoint     | Description          |
-|--------|--------------|----------------------|
-| POST   | /orders      | Checkout and create order |
+### 🧾 Orders
 
-## Testing
+| Method | URL      | Description        |
+|--------|-----------|--------------------|
+| POST   | `/orders` | Checkout/Place order |
 
-- ✅ Repository tests for `User`, `Product`, `Profile`, `ShoppingCart`, and `Category` using `@DataJpaTest`
-- ✅ Controller tests using `@WebMvcTest` with `MockMvc`
-- ✅ JWT Security is disabled for testing to simplify integration
+---
 
-To run tests:
+## 🧪 Testing
 
-```bash
-mvn test
+### ✅ Unit & Integration Tests
+
+- **Controllers** tested with `@WebMvcTest` and `MockMvc`
+- **Repositories** tested with `@DataJpaTest` and in-memory H2
+- Simple coverage for:
+    - User Registration
+    - Profile Retrieval/Update
+    - Product Queries
+    - Shopping Cart Persistence
+    - Order Creation Logic
+
+---
+
+## 🗂️ Folder Structure
+
