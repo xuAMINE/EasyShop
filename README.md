@@ -1,3 +1,5 @@
+
+
 # 🛒 E-Commerce Web Application Backend
 
 This project is a **robust Spring Boot backend** powering a full-stack e-commerce web application. Built as a capstone for backend engineering training, it features modern best practices for **secure, testable, and scalable web APIs**.
